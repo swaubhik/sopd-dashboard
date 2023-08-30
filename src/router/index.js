@@ -108,18 +108,16 @@ router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title} | SOPD Dashboard`
   next()
 })
-// before every route, check if the user is logged in
+
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
-  const isLoggedIn = userStore.getIsLoggedIn
-  const publicPages = ['/login', '/register']
-  const authRequired = !publicPages.includes(to.path)
-
-  if (authRequired && !isLoggedIn) {
-    return next('/login')
+  const isLoggedIn = userStore.isLoggedIn
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  if (requiresAuth && !isLoggedIn) {
+    next({ name: 'login' })
+  } else {
+    next()
   }
-
-  next()
 })
 
 export default router
