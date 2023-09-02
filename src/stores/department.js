@@ -17,7 +17,8 @@ export const useDepartmentStore = defineStore('departments', {
   actions: {
     async fetchDepartments() {
       const departments = await pb.collection('departments').getFullList({
-        sort: '-created'
+        sort: '-created',
+        expand: 'number_of_projects'
       })
       this.departments = departments
     },
@@ -32,9 +33,6 @@ export const useDepartmentStore = defineStore('departments', {
     },
     async deleteDepartment(id) {
       await pb.collection('departments').delete(id)
-    },
-    async getOverallProjectStatus(id) {
-      await pb.collection('department_overall_project_details').getOne(id)
     }
   }
 })

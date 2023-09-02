@@ -92,7 +92,7 @@
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <Suspense>
                                         <p>{{
-                                            totalProjects(department.projects)
+                                            department.expand.number_of_projects.total
                                         }}</p>
                                     </Suspense>
                                 </td>
@@ -134,10 +134,6 @@ const departments = computed(() => useDepartmentStore().departments)
 
 const totalAmountAllocated = computed(() => departments.value.reduce((acc, department) => acc + department.financial_outlay, 0))
 const totalDepartments = computed(() => departments.value.length)
-
-const totalProjects = (id) => {
-    return useDepartmentStore().getOverallProjectStatus(id)
-}
 
 const formatDate = (date) => {
     const d = new Date(date)
