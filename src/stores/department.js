@@ -5,8 +5,7 @@ export const useDepartmentStore = defineStore('departments', {
   state: () => {
     return {
       departments: [],
-      errorMsg: '',
-      departmentOverallProjectStatus: Number
+      currentDepartment: {}
     }
   },
   getters: {
@@ -18,12 +17,15 @@ export const useDepartmentStore = defineStore('departments', {
     async fetchDepartments() {
       const departments = await pb.collection('departments').getFullList({
         sort: '-created',
-        expand: 'number_of_projects'
+        expand: 'number_of_projects,last_14_days_update,tenders'
       })
       this.departments = departments
     },
     async fetchDepartment(id) {
-      await pb.collection('departments').getOne(id)
+      const department = await pb.collection('departments').getOne(id, {
+        expand: 'number_of_projects,last_14_days_update,tenders,projects'
+      })
+      this.currentDepartment = department
     },
     async createDepartment(department) {
       await pb.collection('departments').create(department)
