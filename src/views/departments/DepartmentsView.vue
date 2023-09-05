@@ -140,12 +140,12 @@ const formatDate = (date) => {
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} at ${d.getHours()}:${d.getMinutes()}`
 }
 const chartBgColor = ref([
-    'rgba(255, 99, 132, 0.2)',
-    'rgba(54, 162, 235, 0.2)',
-    'rgba(255, 206, 86, 0.2)',
-    'rgba(75, 192, 192, 0.2)',
-    'rgba(153, 102, 255, 0.2)',
-    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 99, 132, 0.5)',
+    'rgba(54, 162, 235, 0.5)',
+    'rgba(255, 206, 86, 0.5)',
+    'rgba(75, 192, 192, 0.5)',
+    'rgba(153, 102, 255, 0.5)',
+    'rgba(255, 159, 64, 0.5)',
 
 ])
 const chartData = ref({
@@ -153,7 +153,7 @@ const chartData = ref({
     datasets: [{
         label: 'Amount',
         data: departments.value.map(department => department.financial_outlay),
-        hoverBorderWidth: 2,
+        hoverBorderWidth: 1,
         hoverBorderColor: '#fff',
         backgroundColor: chartBgColor.value.map(color => color),
         borderRadius: 4,
